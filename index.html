@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuxion Studio — Поддержка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #eaeaea;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Заголовок компании */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #00c6ff, #0072ff, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Заголовок раздела */
+        h2.section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        h2.section-title span {
+            color: #00c6ff;
+        }
+
+        /* Карточки проблем */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 22px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 198, 255, 0.15);
+            border-color: rgba(0, 198, 255, 0.4);
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 14px;
+            color: #7dd3fc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 .icon {
+            font-size: 1.5rem;
+        }
+
+        .card ol {
+            padding-left: 22px;
+        }
+
+        .card ol li {
+            margin-bottom: 12px;
+            line-height: 1.55;
+            color: #d1d5db;
+        }
+
+        .card ol li strong {
+            color: #ffffff;
+        }
+
+        .highlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Особый блок про VPN */
+        .vpn-note {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: #fde68a;
+            font-size: 0.95rem;
+        }
+
+        /* Блок поддержки */
+        .support {
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.15), rgba(168, 85, 247, 0.15));
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .support h2 {
+            color: #00c6ff;
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+        }
+
+        .support p {
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .email {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 198, 255, 0.5);
+            transition: all 0.25s ease;
+        }
+
+        .email:hover {
+            background: rgba(0, 198, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .info-list {
+            list-style: none;
+            margin-top: 18px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .info-list li {
+            margin-bottom: 8px;
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        .info-list li::before {
+            content: "•";
+            color: #00c6ff;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- НАЗВАНИЕ КОМПАНИИ -->
+        <header class="header">
+            <div class="logo">Fuxion Studio</div>
+            <p class="subtitle">Центр поддержки пользователей</p>
+        </header>
+
+        <!-- ЧАСТЫЕ ПРОБЛЕМЫ -->
+        <h2 class="section-title">Частые <span>проблемы</span></h2>
+
+        <!-- Проблемы с входом / регистрацией -->
+        <div class="card">
+            <h3><span class="icon">🔐</span> Проблемы с входом / регистрацией</h3>
+            <ol>
+                <li>
+                    <strong>Неверный логин или пароль.</strong>
+                    Проверьте раскладку клавиатуры, регистр букв и отсутствие лишних пробелов. Используйте функцию восстановления пароля.
+                </li>
+                <li>
+                    <strong>Ошибка сервера / таймаут при входе.</strong>
+                    Временные сбои на стороне сервера. Подождите 5–10 минут и попробуйте снова.
+                </li>
+                <li>
+                    <strong>Аккаунт заблокирован.</strong>
+                    Возможна блокировка за нарушение правил. Обратитесь в поддержку для уточнения причины.
+                </li>
+                <li>
+                    <strong>Проблемы с синхронизацией (блокировки в РФ).</strong>
+                    Из-за ограничений и блокировок в Российской Федерации синхронизация с сервером может прерываться.
+                    <div class="vpn-note">
+                        💡 <strong>Решение:</strong> включите <span class="highlight">VPN</span> и повторите попытку входа / регистрации.
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Проблемы с оплатой -->
+        <div class="card">
+            <h3><span class="icon">💳</span> Проблемы с оплатой</h3>
+            <ol>
+                <li>
+                    <strong>Платёж отклонён банком.</strong>
+                    Проверьте лимиты карты, достаточность средств и разрешение на интернет-платежи. Попробуйте другую карту.
+                </li>
+                <li>
+                    <strong>Ошибка при проведении транзакции.</strong>
+                    Возможны временные сбои платёжной системы. Не повторяйте оплату сразу — дождитесь 10–15 минут.
+                </li>
+                <li>
+                    <strong>Списание прошло, но услуга не активирована.</strong>
+                    Обычно активация занимает до 30 минут. Если прошло больше — напишите в поддержку с чеком об оплате.
+                </li>
+                <li>
+                    <strong>Карта не поддерживается.</strong>
+                    Убедитесь, что карта поддерживает онлайн-оплату и не заблокирована для международных транзакций.
+                </li>
+                <li>
+                    <strong>Блокировки платёжных систем в РФ.</strong>
+                    <div class="vpn-note">
+                        💡 <strong>Решение:</strong> при ошибках оплаты попробуйте включить <span class="highlight">VPN</span> или используйте альтернативный способ оплаты.
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- ПОДДЕРЖКА -->
+        <div class="support">
+            <h2>📬 Служба поддержки</h2>
+            <p>Не нашли решение своей проблемы? Напишите нам — мы поможем!</p>
+
+            <a href="mailto:Fuxionstudio0@gmail.com" class="email">Fuxionstudio0@gmail.com</a>
+
+            <ul class="info-list">
+                <li>Время ответа: обычно в течение 24 часов</li>
+                <li>В письме укажите: логин, описание проблемы и скриншоты</li>
+                <li>При проблемах с оплатой приложите чек / скриншот транзакции</li>
+                <li>Работаем ежедневно, включая выходные</li>
+            </ul>
+        </div>
+
+        <footer>
+            © 2025 Fuxion Studio. Все права защищены.
+        </footer>
+
+    </div>
+</body>
+</html>
