@@ -5,18 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fuxion Studio — Поддержка</title>
     <style>
+        :root {
+            --bg: #ffffff;
+            --text: #111111;
+            --text-muted: #888888;
+            --text-soft: #555555;
+            --line: #eeeeee;
+            --line-soft: #f2f2f2;
+            --note-bg: #f7f7f7;
+            --accent: #111111;
+            --danger: #d92d20;
+            --success: #12805c;
+            --toast-bg: #111111;
+            --toast-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a0a;
+            --text: #f5f5f5;
+            --text-muted: #777777;
+            --text-soft: #aaaaaa;
+            --line: #222222;
+            --line-soft: #161616;
+            --note-bg: #141414;
+            --accent: #f5f5f5;
+            --danger: #f87171;
+            --success: #4ade80;
+            --toast-bg: #f5f5f5;
+            --toast-text: #0a0a0a;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: #ffffff;
-            color: #111111;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.25s ease, color 0.25s ease;
+            min-height: 100vh;
         }
 
         .container {
@@ -25,44 +59,152 @@
             padding: 80px 24px 120px;
         }
 
-        /* Заголовок */
-        .header {
-            margin-bottom: 72px;
+        /* ===== ШАПКА ===== */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            gap: 16px;
         }
 
-        .header h1 {
+        .topbar h1 {
             font-size: 1.6rem;
             font-weight: 600;
             letter-spacing: -0.02em;
         }
 
-        .header p {
-            color: #888888;
+        .topbar p {
+            color: var(--text-muted);
             font-size: 0.95rem;
             margin-top: 6px;
         }
 
-        /* Заголовки секций */
+        .topbar-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s ease;
+        }
+
+        .icon-btn:hover { border-color: var(--text); }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--text);
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-outline:hover { border-color: var(--text); }
+
+        .btn-solid {
+            background: var(--accent);
+            color: var(--bg);
+            border: 1px solid var(--accent);
+            padding: 12px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: inherit;
+            width: 100%;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-solid:hover { opacity: 0.85; }
+        .btn-solid:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ===== ПОИСК ===== */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 32px;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-wrap input:focus {
+            outline: none;
+            border-color: var(--text);
+        }
+
+        .search-wrap::before {
+            content: "🔍";
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 0;
+            font-size: 0.95rem;
+        }
+
+        /* ===== СЕКЦИИ ===== */
         .section-label {
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: #999999;
+            color: var(--text-muted);
             margin-bottom: 32px;
         }
 
-        /* Блоки проблем */
         .card {
             margin-bottom: 56px;
         }
+
+        .card.hidden { display: none; }
 
         .card h3 {
             font-size: 1.15rem;
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 12px;
-            border-bottom: 1px solid #eeeeee;
+            border-bottom: 1px solid var(--line);
         }
 
         .card ol {
@@ -76,8 +218,11 @@
             padding-left: 36px;
             margin-bottom: 18px;
             font-size: 0.95rem;
-            color: #333333;
+            color: var(--text-soft);
+            transition: opacity 0.2s ease;
         }
+
+        .card ol li.hidden { display: none; }
 
         .card ol li::before {
             content: counter(item);
@@ -86,35 +231,95 @@
             top: 2px;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #999999;
+            color: var(--text-muted);
             width: 20px;
         }
 
         .card ol li strong {
-            color: #111111;
+            color: var(--text);
             font-weight: 600;
+        }
+
+        mark {
+            background: #fde68a;
+            color: #111;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        [data-theme="dark"] mark {
+            background: #b45309;
+            color: #fff;
         }
 
         .note {
             display: block;
             margin-top: 8px;
             padding: 10px 14px;
-            background: #f7f7f7;
+            background: var(--note-bg);
             border-radius: 6px;
             font-size: 0.88rem;
-            color: #555555;
+            color: var(--text-soft);
         }
 
-        .note .vpn {
-            font-weight: 600;
-            color: #111111;
+        .note .vpn { font-weight: 600; color: var(--text); }
+
+        /* ===== FAQ ===== */
+        .faq { margin-top: 72px; }
+
+        .faq-item {
+            border-bottom: 1px solid var(--line-soft);
         }
 
-        /* Поддержка */
+        .faq-q {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            text-align: left;
+            padding: 18px 30px 18px 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .faq-q::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item.open .faq-q::after {
+            content: "−";
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            padding: 0;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 300px;
+            padding: 0 0 18px;
+        }
+
+        /* ===== ПОДДЕРЖКА ===== */
         .support {
             margin-top: 72px;
             padding-top: 40px;
-            border-top: 1px solid #eeeeee;
+            border-top: 1px solid var(--line);
         }
 
         .support h3 {
@@ -124,25 +329,29 @@
         }
 
         .support p {
-            color: #555555;
+            color: var(--text-soft);
             font-size: 0.95rem;
             margin-bottom: 20px;
         }
 
+        .email-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
         .email {
-            display: inline-block;
             font-size: 1rem;
             font-weight: 500;
-            color: #111111;
+            color: var(--text);
             text-decoration: none;
-            border-bottom: 1px solid #111111;
+            border-bottom: 1px solid var(--text);
             padding-bottom: 2px;
             transition: opacity 0.2s ease;
         }
 
-        .email:hover {
-            opacity: 0.5;
-        }
+        .email:hover { opacity: 0.5; }
 
         .info-list {
             list-style: none;
@@ -151,71 +360,304 @@
 
         .info-list li {
             font-size: 0.9rem;
-            color: #888888;
+            color: var(--text-muted);
             padding: 10px 0;
-            border-bottom: 1px solid #f2f2f2;
+            border-bottom: 1px solid var(--line-soft);
         }
 
-        .info-list li:last-child {
-            border-bottom: none;
-        }
+        .info-list li:last-child { border-bottom: none; }
 
-        /* Подвал */
         footer {
             margin-top: 80px;
             font-size: 0.8rem;
-            color: #bbbbbb;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        /* Мобильная адаптация */
+        /* ===== МОДАЛКА ===== */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .overlay.active { display: flex; }
+
+        .modal {
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 36px 32px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            animation: modalIn 0.2s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover { color: var(--text); }
+
+        .modal h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .modal .modal-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .field { margin-bottom: 16px; }
+
+        .field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 11px 14px;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .field input:focus {
+            outline: none;
+            border-color: var(--text);
+        }
+
+        .field input.error {
+            border-color: var(--danger);
+        }
+
+        .field .error-msg {
+            display: none;
+            color: var(--danger);
+            font-size: 0.78rem;
+            margin-top: 6px;
+        }
+
+        .field .error-msg.show { display: block; }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .checkbox-row input {
+            margin-top: 3px;
+            accent-color: var(--text);
+        }
+
+        .checkbox-row a {
+            color: var(--text);
+            text-decoration: underline;
+        }
+
+        .form-msg {
+            display: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .form-msg.success {
+            display: block;
+            background: rgba(18, 128, 92, 0.1);
+            color: var(--success);
+        }
+
+        .form-msg.error {
+            display: block;
+            background: rgba(217, 45, 32, 0.1);
+            color: var(--danger);
+        }
+
+        .modal-switch {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+
+        .modal-switch a {
+            color: var(--text);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* ===== ТОСТ ===== */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--toast-bg);
+            color: var(--toast-text);
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 200;
+            pointer-events: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== КНОПКА НАВЕРХ ===== */
+        .to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            z-index: 90;
+        }
+
+        .to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .to-top:hover {
+            border-color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        /* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== МОБИЛЬНАЯ ===== */
         @media (max-width: 480px) {
-            .container {
-                padding: 48px 20px 80px;
-            }
-
-            .header {
-                margin-bottom: 56px;
-            }
-
-            .header h1 {
-                font-size: 1.35rem;
-            }
+            .container { padding: 48px 20px 80px; }
+            .topbar { flex-direction: column; }
+            .topbar h1 { font-size: 1.35rem; }
+            .topbar-actions { width: 100%; justify-content: space-between; }
+            .btn-outline { flex: 1; justify-content: center; }
+            .to-top { bottom: 16px; right: 16px; }
+            .modal { padding: 28px 22px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- Название компании -->
-        <header class="header">
-            <h1>Fuxion Studio</h1>
-            <p>Центр поддержки</p>
-        </header>
+        <!-- ШАПКА -->
+        <div class="topbar">
+            <div>
+                <h1>Fuxion Studio</h1>
+                <p>Центр поддержки</p>
+            </div>
+            <div class="topbar-actions">
+                <button class="icon-btn" id="themeToggle" title="Сменить тему" aria-label="Сменить тему">🌙</button>
+                <button class="btn-outline" id="openRegister">Регистрация</button>
+            </div>
+        </div>
 
-        <!-- Частые проблемы -->
+        <!-- ПОИСК -->
+        <div class="search-wrap">
+            <input type="text" id="searchInput" placeholder="Поиск по проблемам..." aria-label="Поиск по проблемам">
+        </div>
+
+        <!-- ЧАСТЫЕ ПРОБЛЕМЫ -->
         <div class="section-label">Частые проблемы</div>
 
+        <div class="no-results" id="noResults">Ничего не найдено. Попробуйте другой запрос.</div>
+
         <!-- Вход / регистрация -->
-        <div class="card">
+        <div class="card fade-in" data-searchable>
             <h3>Вход и регистрация</h3>
             <ol>
-                <li>
+                <li data-text="неверный логин или пароль проверьте раскладку регистр пробелы восстановление">
                     <strong>Неверный логин или пароль.</strong>
                     Проверьте раскладку, регистр и пробелы. Используйте восстановление пароля.
                 </li>
-                <li>
+                <li data-text="аккаунт не подтверждён почта спам письмо">
                     <strong>Аккаунт не подтверждён.</strong>
                     Проверьте почту, включая папку «Спам». Запросите письмо повторно.
                 </li>
-                <li>
+                <li data-text="ошибка сервера таймаут сбой подождите">
                     <strong>Ошибка сервера или таймаут.</strong>
                     Временный сбой — подождите 5–10 минут и попробуйте снова.
                 </li>
-                <li>
+                <li data-text="аккаунт заблокирован нарушение правил поддержка">
                     <strong>Аккаунт заблокирован.</strong>
                     Возможна блокировка за нарушение правил — напишите в поддержку.
                 </li>
-                <li>
+                <li data-text="синхронизация блокировки россия рф сервер vpn впн">
                     <strong>Проблемы с синхронизацией (блокировки в РФ).</strong>
                     Из-за ограничений в РФ синхронизация с сервером может прерываться.
                     <span class="note">Решение: включите <span class="vpn">VPN</span> и повторите попытку.</span>
@@ -224,37 +666,62 @@
         </div>
 
         <!-- Оплата -->
-        <div class="card">
+        <div class="card fade-in" data-searchable>
             <h3>Оплата</h3>
             <ol>
-                <li>
+                <li data-text="платёж отклонён банк лимиты баланс карта">
                     <strong>Платёж отклонён банком.</strong>
                     Проверьте лимиты, баланс и разрешение на интернет-платежи. Попробуйте другую карту.
                 </li>
-                <li>
+                <li data-text="ошибка транзакции платёжная система сбой">
                     <strong>Ошибка транзакции.</strong>
                     Возможен сбой платёжной системы — не повторяйте оплату сразу, подождите 10–15 минут.
                 </li>
-                <li>
+                <li data-text="списание услуга не активна активация чек">
                     <strong>Списание прошло, услуга не активна.</strong>
                     Обычно активация занимает до 30 минут. Если дольше — напишите в поддержку с чеком.
                 </li>
-                <li>
+                <li data-text="карта не поддерживается онлайн международные">
                     <strong>Карта не поддерживается.</strong>
                     Убедитесь, что карта поддерживает онлайн-оплату и международные транзакции.
                 </li>
-                <li>
+                <li data-text="блокировки платёжных систем россия рф vpn впн оплата">
                     <strong>Блокировки платёжных систем в РФ.</strong>
                     При ошибках оплаты попробуйте включить <span class="vpn">VPN</span> или другой способ оплаты.
                 </li>
             </ol>
         </div>
 
-        <!-- Поддержка -->
-        <div class="support">
+        <!-- FAQ -->
+        <div class="section-label" style="margin-top: 72px;">Вопросы и ответы</div>
+
+        <div class="faq">
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">Как быстро отвечает поддержка?</button>
+                <div class="faq-a">Обычно в течение 24 часов. В выходные возможен ответ в течение 48 часов.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">Что приложить к письму?</button>
+                <div class="faq-a">Логин, описание проблемы, скриншоты и, при проблемах с оплатой, чек транзакции.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">Обязателен ли VPN?</button>
+                <div class="faq-a">Не всегда, но при ошибках синхронизации или оплаты из РФ — это самый быстрый способ решить проблему.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">Можно ли вернуть средства?</button>
+                <div class="faq-a">Возврат рассматривается индивидуально. Напишите на почту с чеком и описанием ситуации.</div>
+            </div>
+        </div>
+
+        <!-- ПОДДЕРЖКА -->
+        <div class="support fade-in">
             <h3>Поддержка</h3>
             <p>Не нашли решение? Напишите нам.</p>
-            <a href="mailto:Fuxionstudio0@gmail.com" class="email">Fuxionstudio0@gmail.com</a>
+            <div class="email-row">
+                <a href="mailto:Fuxionstudio0@gmail.com" class="email">Fuxionstudio0@gmail.com</a>
+                <button class="btn-outline" id="copyEmail" style="padding: 6px 12px; font-size: 0.8rem;">Копировать</button>
+            </div>
 
             <ul class="info-list">
                 <li>Время ответа — обычно в течение 24 часов</li>
@@ -265,9 +732,254 @@
         </div>
 
         <footer>
-            © 2025 Fuxion Studio
+            <span>© 2025 Fuxion Studio</span>
+            <span>Сделано с вниманием к деталям</span>
         </footer>
-
     </div>
+
+    <!-- МОДАЛКА РЕГИСТРАЦИИ -->
+    <div class="overlay" id="registerOverlay" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+        <div class="modal">
+            <button class="modal-close" id="closeRegister" aria-label="Закрыть">×</button>
+            <h2 id="registerTitle">Регистрация</h2>
+            <p class="modal-sub">Создайте аккаунт Fuxion Studio</p>
+
+            <div class="form-msg" id="formMsg"></div>
+
+            <form id="registerForm" novalidate>
+                <div class="field">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" autocomplete="username" placeholder="username">
+                    <div class="error-msg" data-for="username">Минимум 3 символа</div>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" autocomplete="email" placeholder="you@example.com">
+                    <div class="error-msg" data-for="email">Введите корректный email</div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" autocomplete="new-password" placeholder="Минимум 6 символов">
+                    <div class="error-msg" data-for="password">Минимум 6 символов</div>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="agree">
+                    <label for="agree">Я принимаю условия использования и политику конфиденциальности</label>
+                </div>
+
+                <button type="submit" class="btn-solid" id="submitBtn">Создать аккаунт</button>
+            </form>
+
+            <div class="modal-switch">
+                Уже есть аккаунт? <a id="switchToLogin">Войти</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ТОСТ -->
+    <div class="toast" id="toast"></div>
+
+    <!-- КНОПКА НАВЕРХ -->
+    <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+    <script>
+        /* ============================================================
+           ТЕМА — переключатель с сохранением в localStorage
+           ============================================================ */
+        const themeToggle = document.getElementById('themeToggle');
+        const root = document.documentElement;
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('fuxion-theme', theme);
+        }
+
+        // Автоопределение при первом заходе
+        const savedTheme = localStorage.getItem('fuxion-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+        themeToggle.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        /* ============================================================
+           ТОСТ-УВЕДОМЛЕНИЯ
+           ============================================================ */
+        const toast = document.getElementById('toast');
+        let toastTimer;
+
+        function showToast(text) {
+            clearTimeout(toastTimer);
+            toast.textContent = text;
+            toast.classList.add('show');
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
+        }
+
+        /* ============================================================
+           КОПИРОВАНИЕ EMAIL
+           ============================================================ */
+        document.getElementById('copyEmail').addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText('Fuxionstudio0@gmail.com');
+                showToast('Email скопирован');
+            } catch {
+                showToast('Не удалось скопировать');
+            }
+        });
+
+        /* ============================================================
+           МОДАЛКА РЕГИСТРАЦИИ
+           ============================================================ */
+        const overlay = document.getElementById('registerOverlay');
+        const registerForm = document.getElementById('registerForm');
+        const formMsg = document.getElementById('formMsg');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function openModal() {
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => document.getElementById('username').focus(), 100);
+        }
+
+        function closeModal() {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            formMsg.className = 'form-msg';
+            formMsg.textContent = '';
+            registerForm.reset();
+            document.querySelectorAll('.field input').forEach(i => i.classList.remove('error'));
+            document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+        }
+
+        document.getElementById('openRegister').addEventListener('click', openModal);
+        document.getElementById('closeRegister').addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        document.getElementById('switchToLogin').addEventListener('click', () => {
+            showToast('Вход скоро появится');
+        });
+
+        // Валидация
+        function validateField(id, rule, errorId) {
+            const input = document.getElementById(id);
+            const error = document.querySelector(`.error-msg[data-for="${id}"]`);
+            const ok = rule(input.value);
+            input.classList.toggle('error', !ok);
+            error.classList.toggle('show', !ok);
+            return ok;
+        }
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const okUser = validateField('username', v => v.trim().length >= 3);
+            const okEmail = validateField('email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+            const okPass = validateField('password', v => v.length >= 6);
+
+            if (!document.getElementById('agree').checked) {
+                formMsg.className = 'form-msg error';
+                formMsg.textContent = 'Подтвердите согласие с условиями';
+                return;
+            }
+
+            if (!okUser || !okEmail || !okPass) {
+                formMsg.className = 'form-msg error';
+                formMsg.textContent = 'Проверьте поля формы';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Создаём аккаунт...';
+
+            // ===== ЗДЕСЬ БУДЕТ FIREBASE =====
+            // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+            // const auth = getAuth();
+            // try {
+            //     await createUserWithEmailAndPassword(auth, email, password);
+            // } catch (err) { ... }
+
+            // Имитация задержки
+            setTimeout(() => {
+                formMsg.className = 'form-msg success';
+                formMsg.textContent = 'Аккаунт создан! (демо)';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Создать аккаунт';
+                showToast('Регистрация скоро заработает');
+            }, 900);
+        });
+
+        /* ============================================================
+           ПОИСК ПО ПРОБЛЕМАМ
+           ============================================================ */
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', () => {
+            const q = searchInput.value.trim().toLowerCase();
+            let totalVisible = 0;
+
+            document.querySelectorAll('[data-searchable]').forEach(card => {
+                let cardVisible = 0;
+                card.querySelectorAll('li').forEach(li => {
+                    const text = (li.dataset.text || '') + ' ' + li.textContent.toLowerCase();
+                    const match = !q || text.toLowerCase().includes(q);
+                    li.classList.toggle('hidden', !match);
+                    if (match) cardVisible++;
+                });
+                card.classList.toggle('hidden', cardVisible === 0);
+                totalVisible += cardVisible;
+            });
+
+            noResults.style.display = (q && totalVisible === 0) ? 'block' : 'none';
+        });
+
+        /* ============================================================
+           FAQ АККОРДЕОН
+           ============================================================ */
+        document.querySelectorAll('.faq-q').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('open');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        /* ============================================================
+           КНОПКА НАВЕРХ
+           ============================================================ */
+        const toTop = document.getElementById('toTop');
+        window.addEventListener('scroll', () => {
+            toTop.classList.toggle('show', window.scrollY > 400);
+        });
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        /* ============================================================
+           FADE-IN ПРИ СКРОЛЛЕ
+           ============================================================ */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
